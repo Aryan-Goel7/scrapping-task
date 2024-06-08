@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "85499b78-2fb6-4e7e-8497-9a7a91f38d6f",
+		"name": "Scraping Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27918257"
+	},
+	"item": [
+		{
+			"name": "Scraping Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"coin_name\" : \"ethereum\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/scrap/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"scrap",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Coin Data",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"coin_name\" : \"bitcoin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/scrap/?task_id=589f6f20-15fd-4cd7-ac9d-2e938cb7238c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"scrap",
+						""
+					],
+					"query": [
+						{
+							"key": "task_id",
+							"value": "589f6f20-15fd-4cd7-ac9d-2e938cb7238c"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
