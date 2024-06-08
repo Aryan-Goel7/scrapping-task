@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"coin_name\" : \"ethereum\"\n}",
+					"raw": "{\n    \"coin_name\" : [\"ethereum\",\"bitcoin\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"

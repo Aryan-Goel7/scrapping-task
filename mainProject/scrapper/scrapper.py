@@ -16,8 +16,8 @@ class coin_market_scrapper:
     def __init__(self, coin_name, driver_path=None):
         self.coin_name = coin_name.lower().replace(' ', '-')
         self.url = f"{self.BASE_URL}{self.coin_name}/"
-        # self.driver_path = driver_path or os.path.join(os.getcwd(), 'chromedriver')
         self.driver = self._init_firefox_driver()
+
 
     def _init_driver(self):
         # service = Service(self.driver_path)
@@ -99,8 +99,6 @@ class coin_market_scrapper:
     def get_coin_data_as_json(self):
         coin_data = self.get_coin_data()
         return json.dumps(coin_data, indent=4)
-
-
 
 if ( __name__ == "__main__" ) :
     coin_name = "bitcoin"

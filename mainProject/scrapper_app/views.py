@@ -8,8 +8,8 @@ import json
 
 
 class ScrapperList(APIView):
-    
-    def get(self, request: Request, format=None):
+
+    def get(self, request, format=None) -> Response:
         task_id = request.query_params.get('task_id')
         if not task_id:
             return Response({'error': 'task_id query parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
@@ -17,21 +17,20 @@ class ScrapperList(APIView):
         task_result = AsyncResult(task_id)
         if task_result.ready():
             result = task_result.result
-            result_json = json.loads(result)
-            return Response({'status': 'completed', 'result': result_json})
+            # print(type(result)) 
+            data = map( lambda coin_data : json.loads(coin_data), result)
+            try:
+                return Response({'status': 'completed', 'data': data})
+            except json.JSONDecodeError:
+                return Response({'error': 'Failed to decode JSON result'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response({'status': 'pending'})
 
-    def post(self, request: Request, format=None):
-        
-        data = request.data
-
-        
-        coin_name = data.get('coin_name')
-
-        if coin_name:
-            task_id = scrapping_task.delay(coin_name).id
+    def post(self, request: Request, format=None) -> Response:
+        data = json.loads(request.body) 
+        coins_name = data.get('coins_name')
+        if coins_name:
+            task_id = scrapping_task.delay(coins_name).id
             return Response({"task_id": task_id}, status=status.HTTP_200_OK)
         else:
-            # Return an error response if coin_name is not provided
             return Response({"error": "coin_name not provided"}, status=status.HTTP_400_BAD_REQUEST)
