@@ -7,7 +7,7 @@ def scrapping_task(self , coins):
     for coin in coins : 
         time.sleep(0.5)
         scraper = coin_market_scrapper(coin)
-        coin_data = scraper.get_coin_data()
+        coin_data = scraper.get_coin_data_as_json()
         coins_data.append(coin_data)
     return coins_data
 
