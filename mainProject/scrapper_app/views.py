@@ -17,10 +17,8 @@ class ScrapperList(APIView):
         task_result = AsyncResult(task_id)
         if task_result.ready():
             result = task_result.result
-            # print(type(result)) 
-            data = map( lambda coin_data : json.loads(coin_data), result)
             try:
-                return Response({'status': 'completed', 'data': data})
+                return Response({'status': 'completed', 'data': result})
             except json.JSONDecodeError:
                 return Response({'error': 'Failed to decode JSON result'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
